@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment Form</title>
+    <script>
+        // Function to handle form submission and database interaction
+        function handleForm() {
+            const rollNo = document.getElementById('rollNo').value;
+            const fullName = document.getElementById('fullName').value;
+            const classField = document.getElementById('classField').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const address = document.getElementById('address').value;
+            const enrollmentDate = document.getElementById('enrollmentDate').value;
+
+            // Check if Roll No exists in the database (mockup)
+            const existingRecord = checkDatabase(rollNo); // Replace with actual DB check
+
+            if (existingRecord) {
+                // Populate form with existing data
+                document.getElementById('fullName').value = existingRecord.fullName;
+                document.getElementById('classField').value = existingRecord.classField;
+                document.getElementById('birthDate').value = existingRecord.birthDate;
+                document.getElementById('address').value = existingRecord.address;
+                document.getElementById('enrollmentDate').value = existingRecord.enrollmentDate;
+
+                // Enable Update and Reset buttons
+                document.getElementById('updateBtn').disabled = false;
+                document.getElementById('resetBtn').disabled = false;
+                document.getElementById('saveBtn').disabled = true;
+
+                // Disable Roll No field
+                document.getElementById('rollNo').disabled = true;
+            } else {
+                // Enable Save and Reset buttons
+                document.getElementById('saveBtn').disabled = false;
+                document.getElementById('resetBtn').disabled = false;
+                document.getElementById('updateBtn').disabled = true;
+
+                // Clear other fields
+                clearFields();
+            }
+        }
+
+        function checkDatabase(rollNo) {
+            // Mockup function to simulate database check
+            // Replace with actual database query
+            const mockDatabase = [
+                { rollNo: '1', fullName: 'John Doe', classField: '10', birthDate: '2005-01-01', address: '123 Main St', enrollmentDate: '2020-01-01' }
+            ];
+            return mockDatabase.find(record => record.rollNo === rollNo);
+        }
+
+        function saveData() {
+            // Validate fields
+            if (validateFields()) {
+                // Save data to database (mockup)
+                alert('Data saved successfully!');
+                resetForm();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        function updateData() {
+            // Validate fields
+            if (validateFields()) {
+                // Update data in database (mockup)
+                alert('Data updated successfully!');
+                resetForm();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        function validateFields() {
+            return document.getElementById('fullName').value && document.getElementById('classField').value &&
+                document.getElementById('birthDate').value && document.getElementById('address').value &&
+                document.getElementById('enrollmentDate').value;
+        }
+
+        function resetForm() {
+            document.getElementById('enrollmentForm').reset();
+            document.getElementById('rollNo').disabled = false;
+            document.getElementById('saveBtn').disabled = true;
+            document.getElementById('updateBtn').disabled = true;
+            document.getElementById('resetBtn').disabled = false;
+            clearFields();
+        }
+
+        function clearFields() {
+            document.getElementById('fullName').value = '';
+            document.getElementById('classField').value = '';
+            document.getElementById('birthDate').value = '';
+            document.getElementById('address').value = '';
+            document.getElementById('enrollmentDate').value = '';
+        }
+    </script>
+</head>
+<body onload="resetForm()">
+    <h1>Student Enrollment Form</h1>
+    <form id="enrollmentForm" onsubmit="return false;">
+        <label for="rollNo">Roll No:</label>
+        <input type="text" id="rollNo" onblur="handleForm()" required><br><br>
+
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" disabled required><br><br>
+
+        <label for="classField">Class:</label>
+        <input type="text" id="classField" disabled required><br><br>
+
+        <label for="birthDate">Birth Date:</label>
+        <input type="date" id="birthDate" disabled required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" disabled required><br><br>
+
+        <label for="enrollmentDate">Enrollment Date:</label>
+        <input type="date" id="enrollmentDate" disabled required><br><br>
+
+        <button id="saveBtn" onclick="saveData()" disabled>Save</button>
+        <button id="updateBtn" onclick="updateData()" disabled>Update</button>
+        <button id="resetBtn" onclick="resetForm()">Reset</button>
+    </form>
+</body>
+</html>
