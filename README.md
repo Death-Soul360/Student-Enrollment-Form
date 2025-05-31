@@ -6,6 +6,20 @@
 
 ---
 
+## Table of contents
+
+- [About]
+- [Features]
+- [Demo]
+- [Technologies Used]
+- [How to Use]
+- [Notes]
+- [Future Enhancements]
+- [File Structure]
+- [License](#license)
+
+---
+
 ## About
 
 This project implements a **Student Enrollment Form** that allows users to enter data into a hypothetical school database (`SCHOOL-DB`) in the `STUDENT-TABLE` relation. The primary key for this table is **Roll No**.
